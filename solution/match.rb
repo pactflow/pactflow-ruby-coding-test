@@ -8,6 +8,7 @@ class Match
     @player_1= player_1_name
     @player_2= player_2_name
     @set = MatchSet.new(player_1_name, player_2_name)
+    @match_completed = nil
   end
 
   def score
@@ -15,10 +16,22 @@ class Match
   end
 
   def point_won_by(player_name)
-    if(player_1 == player_name)
-      @set.add_point(true)
-    else
-      @set.add_point(false)
-    end
+    (player_1 == player_name) ? @set.add_point(true) : @set.add_point(false)
+    match_completed? if player_1_game_score >= 6 || player_2_game_score >= 6
+  end
+
+  private
+
+  def match_completed?
+    # to calculate game score and act accordingly
+    # need to handle tie-break also
+  end
+
+  def player_1_game_score
+    @set.game_score[:player_1]
+  end
+
+  def player_2_game_score
+    @set.game_score[:player_2]
   end
 end
