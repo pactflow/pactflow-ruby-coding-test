@@ -14,8 +14,14 @@ class Match
   end
 
   def score
-    puts "=======================\n\n\n#{@match_result}" unless @match_result.nil?
-    @set.score
+    unless @match_result.nil?
+      puts "======================="
+      puts @match_result 
+      puts @set.score
+      puts "======================="
+    else
+      @set.score
+    end
   end
 
   def point_won_by(player_name)

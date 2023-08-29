@@ -28,6 +28,10 @@ class MatchSet
     @game_score[:player_2]
   end
 
+  def inspect
+    score()
+  end
+
   private
 
   def add_game_score

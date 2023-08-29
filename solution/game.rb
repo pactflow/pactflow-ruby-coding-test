@@ -28,6 +28,10 @@ class Game
     @player_1_score = @player_2_score = 0
   end
 
+  def inspect
+    score()
+  end
+
   private
 
   def advantage_score
