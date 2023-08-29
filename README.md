@@ -31,7 +31,7 @@ This section explains how to communicate with the scoring system.
 
 * Start the interactive ruby shell by having the repo as the current working directory (use irb command)
 
-* Require the match.rb file to access the Match interfacing by entering ``'require_relative 'solution/match.rb'``
+* Require the match.rb file to access the Match interfacing by entering ``require_relative 'solution/match.rb'``
 
 * Create a match by passing the player names (defaults to "player 1" and "player 2") to the Match object initialisation
 
@@ -68,17 +68,17 @@ match_x.score() # "6-6, 7-6"
 
 # Once a match terminates the score will be displayed as follows
 match_x.score()
-<!-- =======================
+=======================
 Match won by christofer
 2-6, 0-0
-======================= -->
+=======================
 
 # If a match terminated in a tie-breaker the score will be displayed as follows
 match_x.score()
-<!-- =======================
+=======================
 Match won by vinoth in a tie-break
 7-6, 0-0
-======================= -->
+=======================
 ```
 
 Constraints
