@@ -24,6 +24,63 @@ The scoring system for tennis works like this.
 
 * Add a pointWonBy method that indicates who won the point
 
+
+How-to?
+
+This section explains how to communicate with the scoring system.
+
+* Start the interactive ruby shell by having the repo as the current working directory (use irb command)
+
+* Require the match.rb file to access the Match interfacing by entering ``'require_relative 'solution/match.rb'``
+
+* Create a match by passing the player names (defaults to "player 1" and "player 2") to the Match object initialisation
+
+* Make use of score() method to view the match score at any point in time
+
+* Make use of point_won_by("player 2") method to add a point to any player (player 2 in this case)
+
+* Once the match is won by a player, no further point addition will be allowed, winning a single set terminates the match
+
+* Refer the following example for possible interactions with the system:
+
+```
+match_1 = Match.new('vinoth', 'christofer')
+match_1.score() # "0-0, 0-0"
+
+match_1.point_won_by('christofer')
+match_1.point_won_by('christofer')
+match_1.point_won_by('christofer')
+match_1.point_won_by('vinoth')
+match_1.score() # "0-0, 15-40"
+
+match_1.point_won_by('vinoth')
+match_1.point_won_by('vinoth')
+match_1.score() # "0-0, duece"
+
+match_1.point_won_by('christofer')
+match_1.score() # "0-0, Advantage christofer"
+
+match_1.point_won_by('christofer')
+match_1.score() # "0-1, 0-0"
+
+# On a tie-breaker match the points will be displayed in increments of one
+match_x.score() # "6-6, 7-6"
+
+# Once a match terminates the score will be displayed as follows
+match_x.score()
+<!-- =======================
+Match won by christofer
+2-6, 0-0
+======================= -->
+
+# If a match terminated in a tie-breaker the score will be displayed as follows
+match_x.score()
+<!-- =======================
+Match won by vinoth in a tie-break
+7-6, 0-0
+======================= -->
+```
+
 Constraints
 
 * Only worry about 1 set
