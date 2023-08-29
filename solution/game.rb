@@ -11,11 +11,12 @@ class Game
     @adv_player_2 = "Advantage #{player_2_name}"
   end
 
-  def score
-    if player_1_score >= 3 && player_2_score >= 3
+  def score(is_tie_break)
+    winning_margin = is_tie_break.nil? ? 3 : 7
+    if player_1_score >= winning_margin && player_2_score >= winning_margin
       advantage_score
     else
-      "#{POINTS_MAP[player_1_score]}-#{POINTS_MAP[player_2_score]}"
+      is_tie_break.nil? ? "#{POINTS_MAP[player_1_score]}-#{POINTS_MAP[player_2_score]}" : "#{player_1_score}-#{player_2_score}"
     end
   end
 

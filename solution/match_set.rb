@@ -1,18 +1,31 @@
-require_relative 'game.rb'
 class MatchSet
-  def initialize(player_1_name, player_2_name)
-    @current_game = Game.new(player_1_name, player_2_name)
+  def initialize(current_game)
+    @current_game = current_game
     @game_score = { player_1: 0, player_2: 0 }
+    @tie_break = nil
   end
 
   def score
-    "#{@game_score[:player_1]}-#{@game_score[:player_2]}, #{@current_game.score}"
+    "#{@game_score[:player_1]}-#{@game_score[:player_2]}, #{@current_game.score(@tie_break)}"
   end
 
   def add_point(add_to_player_1)
     @current_game.add_point(add_to_player_1)
     # calculate the game win status after each point addition
-    add_game_score if player_1_score > 3 || player_2_score > 3
+    winning_margin = @tie_break.nil? ? 3 : 7
+    add_game_score if player_1_score > winning_margin || player_2_score > winning_margin
+  end
+
+  def set_tie_breaker
+    @tie_break = true
+  end
+    
+  def player_1_game_score
+    @game_score[:player_1]
+  end
+
+  def player_2_game_score
+    @game_score[:player_2]
   end
 
   private
