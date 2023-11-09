@@ -79,4 +79,14 @@ Notes on submission:
 - Write your solution in the solution folder.
 - Don't spend more than 2 hours maximum. 
 - If you run out of time, please add details of what you would have done better given more time on your PR.
-- When you've finished, send through the link to your github-repo. 
+- When you've finished, send through the link to your github-repo.
+
+
+
+
+
+
+
+Run ruby main.rb and ruby tie_breaker.rb for running sample test cases
+Add similar test cases to test other scenarios
+Improvements: Can split the code into different classes, player, match, set if more time given. 
