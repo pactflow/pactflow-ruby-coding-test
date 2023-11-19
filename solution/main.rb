@@ -6,5 +6,11 @@ Dir['./lib/**/*.rb'].each do |file|
   require_relative "#{file}"
 end
 
-p = Player.new('player_1')
-puts p.name
+p1 = Player.new('player_1')
+p2 = Player.new('player_2')
+
+g = Game.new(p1, p2)
+
+g.point_won_by(p1)
+
+puts g
