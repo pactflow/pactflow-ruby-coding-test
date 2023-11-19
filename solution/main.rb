@@ -6,11 +6,23 @@ Dir['./lib/**/*.rb'].each do |file|
   require_relative "#{file}"
 end
 
-p1 = Player.new('player_1')
-p2 = Player.new('player_2')
+# example from readme.md
+match = Match.new('player 1', 'player 2')
+match.point_won_by('player 1')
+match.point_won_by('player 2')
+puts "expected: 0-0, 15-15 / got: #{match.score}"
 
-g = Game.new(p1, p2)
+match.point_won_by('player 1')
+match.point_won_by('player 1')
+puts "expected: 0-0, 40-15 / got: #{match.score}"
 
-g.point_won_by(p1)
+match.point_won_by('player 2')
+match.point_won_by('player 2')
+puts "expected: 0-0, Deuce / got: #{match.score}"
 
-puts g
+match.point_won_by('player 1')
+puts "expected: 0-0, Advantage player 1 / got: #{match.score}"
+
+match.point_won_by('player 1')
+puts 'this will return "1-0"'
+puts "expected: 1-0 / got: #{match.score}"
