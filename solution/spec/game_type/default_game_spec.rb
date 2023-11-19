@@ -1,22 +1,8 @@
-describe 'base game' do
+describe 'normal game' do
 
   let(:player_1) { Player.new('player_1') }
   let(:player_2) { Player.new('player_2') }
-  let(:game) { Game.new(player_1, player_2) }
-
-
-  it 'checks for player 1 score after increment' do
-    game.point_won_by(player_1)
-    expect(game.scores).to eq([1, 0])
-
-    expect(game.max_score).to eq(1)
-    expect(game.min_score).to eq(0)
-  end
-
-  it 'checks for player 2 score after increment' do
-    game.point_won_by(player_2)
-    expect(game.scores).to eq([0, 1])
-  end
+  let(:game) { GameType::DefaultGame.new(player_1, player_2) }
 
   it 'should check for score after multiple points increment, and winner is player 1' do
     expect(game.score).to eq('0-0')
