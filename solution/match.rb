@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 # Ruby version - 3.2.2
 # tennis match game
 class Match
   attr_reader :player1, :player2
   attr_accessor :current_score_player1, :current_score_player2, :total_score_player1, :total_score_player2
 
-  TENNIS_SCORE = %w[0 15 30 40].freeze
+  TENNIS_SCORES = %w[0 15 30 40].freeze
 
   def initialize(player1, player2)
     @player1 = player1
@@ -38,7 +39,11 @@ class Match
   end
 
   def current_score
-    current_score_player1 >= 3 && current_score_player2 >= 3 ? handle_deuce_or_advantage : "#{TENNIS_SCORE[current_score_player1]}-#{TENNIS_SCORE[current_score_player2]}"
+    if current_score_player1 >= 3 && current_score_player2 >= 3
+      handle_deuce_or_advantage
+    else
+      "#{TENNIS_SCORES[current_score_player1]}-#{TENNIS_SCORES[current_score_player2]}"
+    end
   end
 
   def handle_deuce_or_advantage
