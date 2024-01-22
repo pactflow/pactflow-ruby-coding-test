@@ -18,6 +18,8 @@ class Match
     else
       @current_score_player2 += 1
     end
+
+    check_game_result
   end
 
   def score
@@ -25,6 +27,14 @@ class Match
   end
 
   private
+
+  def check_game_result
+    if @current_score_player1 > 4
+      @total_score_player1 += 1
+    elsif @current_score_player2 > 4
+      @total_score_player2 += 1
+    end
+  end
 
   def current_score
     if @current_score_player1 >= 3 && @current_score_player2 >= 3
