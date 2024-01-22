@@ -1,5 +1,6 @@
 class Match
   attr_reader :player1, :player2
+  TENNIS_SCORE = %w[0 15 30 40].freeze
 
   def initialize(player1, player2)
     @player1 = player1
@@ -21,7 +22,7 @@ class Match
   end
 
   def game_score
-    ["0", "15", "30", "40"][@game_score_player1] + "-#{["0", "15", "30", "40"][@game_score_player2]}"
+    "#{TENNIS_SCORE[@game_score_player1]}-#{TENNIS_SCORE[@game_score_player2]}"
   end
 end
 
