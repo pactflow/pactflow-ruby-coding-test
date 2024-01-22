@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# Ruby version - 3.2.2
 # tennis match game
 class Match
   attr_reader :player1, :player2
