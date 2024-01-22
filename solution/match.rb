@@ -21,13 +21,41 @@ class Match
     game_score
   end
 
+  private
+
   def game_score
-    "#{TENNIS_SCORE[@game_score_player1]}-#{TENNIS_SCORE[@game_score_player2]}"
+    if @game_score_player1 >= 3 && @game_score_player2 >= 3
+      handle_deuce_or_advantage
+    else
+      "#{TENNIS_SCORE[@game_score_player1]}-#{TENNIS_SCORE[@game_score_player2]}"
+    end
+  end
+
+  def handle_deuce_or_advantage
+    if @game_score_player1 == @game_score_player2
+      "Deuce"
+    elsif (@game_score_player1 - @game_score_player2).abs == 1
+      "Advantage #{leading_player}"
+    end
+  end
+
+  def leading_player
+    @game_score_player1 > @game_score_player2 ? player1 : player2
   end
 end
 
 match = Match.new("player 1", "player 2");
 match.point_won_by("player 1");
 match.point_won_by("player 2");
-match.point_won_by("player 2");
+
 p match.score
+
+match.point_won_by("player 1");
+match.point_won_by("player 1");
+p match.score();
+
+match.point_won_by("player 2");
+match.point_won_by("player 2");
+p match.score();
+match.point_won_by("player 1");
+p match.score();
