@@ -29,10 +29,12 @@ class Match
   private
 
   def check_game_result
-    if @current_score_player1 > 4
+    if @current_score_player1 >= 4 && @current_score_player1 >= @current_score_player2 + 2
       @total_score_player1 += 1
-    elsif @current_score_player2 > 4
+      reset_current_scores
+    elsif @current_score_player2 >= 4 && @current_score_player2 >= @current_score_player1 + 2
       @total_score_player2 += 1
+      reset_current_scores
     end
   end
 
@@ -59,6 +61,10 @@ class Match
   def leading_player
     @current_score_player1 > @current_score_player2 ? player1 : player2
   end
+
+  def reset_current_scores
+    @current_score_player1 = @current_score_player2 = 0
+  end
 end
 
 match = Match.new("player 1", "player 2");
@@ -77,4 +83,13 @@ p match.score();
 match.point_won_by("player 1");
 p match.score();
 match.point_won_by("player 1");
+p match.score();
+
+match.point_won_by("player 2");
+p match.score();
+match.point_won_by("player 2");
+p match.score();
+match.point_won_by("player 2");
+p match.score();
+match.point_won_by("player 2");
 p match.score();
