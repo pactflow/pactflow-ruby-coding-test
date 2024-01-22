@@ -1,46 +1,53 @@
 class Match
   attr_reader :player1, :player2
+
   TENNIS_SCORE = %w[0 15 30 40].freeze
 
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
-    @game_score_player1 = 0
-    @game_score_player2 = 0
+    @total_score_player1 = 0
+    @total_score_player2 = 0
+    @current_score_player1 = 0
+    @current_score_player2 = 0
   end
 
   def point_won_by(player)
     if player == player1
-      @game_score_player1 += 1
+      @current_score_player1 += 1
     else
-      @game_score_player2 += 1
+      @current_score_player2 += 1
     end
   end
 
   def score
-    game_score
+    "#{total_score}, #{current_score}"
   end
 
   private
 
-  def game_score
-    if @game_score_player1 >= 3 && @game_score_player2 >= 3
+  def current_score
+    if @current_score_player1 >= 3 && @current_score_player2 >= 3
       handle_deuce_or_advantage
     else
-      "#{TENNIS_SCORE[@game_score_player1]}-#{TENNIS_SCORE[@game_score_player2]}"
+      "#{TENNIS_SCORE[@current_score_player1]}-#{TENNIS_SCORE[@current_score_player2]}"
     end
   end
 
+  def total_score
+    "#{@total_score_player1}-#{@total_score_player2}"
+  end
+
   def handle_deuce_or_advantage
-    if @game_score_player1 == @game_score_player2
+    if @current_score_player1 == @current_score_player2
       "Deuce"
-    elsif (@game_score_player1 - @game_score_player2).abs == 1
+    elsif (@current_score_player1 - @current_score_player2).abs == 1
       "Advantage #{leading_player}"
     end
   end
 
   def leading_player
-    @game_score_player1 > @game_score_player2 ? player1 : player2
+    @current_score_player1 > @current_score_player2 ? player1 : player2
   end
 end
 
@@ -56,6 +63,8 @@ p match.score();
 
 match.point_won_by("player 2");
 match.point_won_by("player 2");
+p match.score();
+match.point_won_by("player 1");
 p match.score();
 match.point_won_by("player 1");
 p match.score();
