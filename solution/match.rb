@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# tennis match game
 class Match
   attr_reader :player1, :player2
 
@@ -52,7 +55,7 @@ class Match
 
   def handle_deuce_or_advantage
     if @current_score_player1 == @current_score_player2
-      "Deuce"
+      'Deuce'
     elsif (@current_score_player1 - @current_score_player2).abs == 1
       "Advantage #{leading_player}"
     end
@@ -67,29 +70,29 @@ class Match
   end
 end
 
-match = Match.new("player 1", "player 2");
-match.point_won_by("player 1");
-match.point_won_by("player 2");
+match = Match.new('player 1', 'player 2')
+match.point_won_by('player 1')
+match.point_won_by('player 2')
 
 p match.score
 
-match.point_won_by("player 1");
-match.point_won_by("player 1");
-p match.score();
+match.point_won_by('player 1')
+match.point_won_by('player 1')
+p match.score
 
-match.point_won_by("player 2");
-match.point_won_by("player 2");
-p match.score();
-match.point_won_by("player 1");
-p match.score();
-match.point_won_by("player 1");
-p match.score();
+match.point_won_by('player 2')
+match.point_won_by('player 2')
+p match.score
+match.point_won_by('player 1')
+p match.score
+match.point_won_by('player 1')
+p match.score
 
-match.point_won_by("player 2");
-p match.score();
-match.point_won_by("player 2");
-p match.score();
-match.point_won_by("player 2");
-p match.score();
-match.point_won_by("player 2");
-p match.score();
+match.point_won_by('player 2')
+p match.score
+match.point_won_by('player 2')
+p match.score
+match.point_won_by('player 2')
+p match.score
+match.point_won_by('player 2')
+p match.score
