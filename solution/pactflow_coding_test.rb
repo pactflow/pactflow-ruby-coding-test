@@ -11,9 +11,16 @@ class Match
     end
     
     def score
-        player_1 = @players[@players.keys[0]]
-        player_2 = @players[@players.keys[1]]
+        puts "#{get_player(0)[:set_score]}-#{get_player(1)[:set_score]}, #{get_game_score}"
+    end
 
+    def get_player(num)
+        @players[@players.keys[num]]
+    end
+    
+    def get_game_score
+        player_1 = get_player(0)
+        player_2 = get_player(1)
         message = "#{@@game_score[player_1[:game_score]]}-#{@@game_score[player_2[:game_score]]}"
         unless (player_1[:game_score] < 3 or player_2[:game_score] < 3)
             case player_1[:game_score] - player_2[:game_score]
@@ -25,15 +32,14 @@ class Match
                     message = "Advantage #{@players.keys[1]}"
             end
         end
-
-        puts "#{player_1[:set_score]}-#{player_2[:set_score]}, #{message}"
+        return message 
     end
     
     def pointWonBy(player_name)
         @players[player_name][:game_score] += 1
         
-        player_1 = @players[@players.keys[0]]
-        player_2 = @players[@players.keys[1]]
+        player_1 = get_player(0)
+        player_2 = get_player(1)
         
         unless (player_1[:game_score] < 3 or player_2[:game_score] < 3)
             case player_1[:game_score] - player_2[:game_score]
