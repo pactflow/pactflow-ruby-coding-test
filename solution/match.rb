@@ -98,15 +98,23 @@ class Match
   end
 
   def check_tiebreak_result
-    if (@player1_points >= 7 || @player2_points >= 7) && (@player1_points - @player2_points).abs >= 2
-      if @player1_points > @player2_points
-         @player1_games += 1
-      else
-        @player2_games += 1
-      end
-      reset_points
+    if tiebreak_over?
+      update_games_and_reset_points
       @is_tiebreak = false
     end
+  end
+
+  def tiebreak_over?
+    (@player1_points >= 7 || @player2_points >= 7) && (@player1_points - @player2_points).abs >= 2
+  end
+
+  def update_games_and_reset_points
+    if @player1_points > @player2_points
+      @player1_games += 1
+    else
+      @player2_games += 1
+    end
+    reset_points
   end
 
   def reset_points
@@ -116,17 +124,23 @@ class Match
 
   def game_score
     if @player1_points >= 3 && @player2_points >= 3
-      if @player1_points == @player2_points
-        'Deuce'
-      elsif (@player1_points - @player2_points).abs == 1
-        "Advantage #{@player1_points > @player2_points ? @player1 : @player2}"
-      else
-        "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
-      end
+      return 'Deuce' if @player1_points == @player2_points
+      return "Advantage #{advantaged_player}" if advantage?
+
+      "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
     else
       "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
     end
   end
+
+  def advantage?
+    (@player1_points - @player2_points).abs == 1
+  end
+
+  def advantaged_player
+    @player1_points > @player2_points ? @player1 : @player2
+  end
+
 end
 
 match = Match.new("player 1", "player 2")
