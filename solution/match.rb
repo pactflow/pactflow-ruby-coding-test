@@ -138,6 +138,10 @@ class Match
     @player1_points > @player2_points ? @player1 : @player2
   end
 
+  def tiebreak_score
+    "#{@player1_points}-#{@player2_points}"
+  end
+
 end
 
 match = Match.new("player 1", "player 2")
