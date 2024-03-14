@@ -19,6 +19,14 @@ class Match
     end
   end
 
+  def score
+    if @is_tiebreak
+      "#{@player1_games}-#{@player2_games}, #{tiebreak_score}"
+    else
+      "#{@player1_games}-#{@player2_games}, #{game_score}"
+    end
+  end
+
   private
 
   def score_mapping
@@ -81,18 +89,32 @@ class Match
     @player1_points = 0
     @player2_points = 0
   end
+
+  def game_score
+    if @player1_points >= 3 && @player2_points >= 3
+      if @player1_points == @player2_points
+        'Deuce'
+      elsif (@player1_points - @player2_points).abs == 1
+        "Advantage #{@player1_points > @player2_points ? @player1 : @player2}"
+      else
+        "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
+      end
+    else
+      "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
+    end
+  end
 end
 
 match = Match.new("player 1", "player 2")
 match.point_won_by("player 1")
+match.point_won_by("player 2")
+
 match.point_won_by("player 1")
 match.point_won_by("player 1")
-match.point_won_by("player 1")
-match.point_won_by("player 1")
-match.point_won_by("player 1")
-match.point_won_by("player 1")
+
 match.point_won_by("player 2")
 match.point_won_by("player 2")
-match.point_won_by("player 2")
-match.point_won_by("player 2")
-match.point_won_by("player 2")
+match.point_won_by("player 1")
+match.point_won_by("player 1")
+
+puts match.score # "1-0, 0-0"
