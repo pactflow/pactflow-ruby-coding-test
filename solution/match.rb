@@ -8,7 +8,7 @@ class Match
     @player2_points = 0
     @player1_games = 0
     @player2_games = 0
-    @is_tiebreak = false
+    @is_tiebreak = true
   end
 
   def point_won_by(player)
@@ -59,11 +59,19 @@ class Match
         "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
       end
     else
-      puts "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
+      "#{score_mapping[@player1_points]}-#{score_mapping[@player2_points]}"
     end
   end
 
   def check_tiebreak_result
+    if (@player1_points >= 7 || @player2_points >= 7) && (@player1_points - @player2_points).abs >= 2
+      if @player1_points > @player2_points
+         @player1_games += 1
+      else
+        @player2_games += 1
+      end
+      @is_tiebreak = false
+    end
   end
 end
 
@@ -71,6 +79,12 @@ match = Match.new("player 1", "player 2")
 match.point_won_by("player 1")
 match.point_won_by("player 1")
 match.point_won_by("player 1")
+match.point_won_by("player 1")
+match.point_won_by("player 1")
+match.point_won_by("player 1")
+match.point_won_by("player 1")
 match.point_won_by("player 2")
-
-#output will be 40-15
+match.point_won_by("player 2")
+match.point_won_by("player 2")
+match.point_won_by("player 2")
+match.point_won_by("player 2")
