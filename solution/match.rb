@@ -8,7 +8,7 @@ class Match
     @player2_points = 0
     @player1_games = 0
     @player2_games = 0
-    @is_tiebreak = true
+    @is_tiebreak = false
   end
 
   def point_won_by(player)
@@ -48,8 +48,10 @@ class Match
   def check_game_result
     if @player1_points >= 4 && (@player1_points - @player2_points) >= 2
       @player1_games += 1
+      reset_points
     elsif @player2_points >= 4 && (@player2_points - @player1_points) >= 2
       @player2_games += 1
+      reset_points
     elsif @player1_points >= 3 && @player2_points >= 3
       if @player1_points == @player2_points
         'Deuce'
@@ -70,8 +72,14 @@ class Match
       else
         @player2_games += 1
       end
+      reset_points
       @is_tiebreak = false
     end
+  end
+
+  def reset_points
+    @player1_points = 0
+    @player2_points = 0
   end
 end
 
