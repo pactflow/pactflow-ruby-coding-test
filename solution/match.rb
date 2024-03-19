@@ -10,30 +10,37 @@ class Match
 
   def pointWonBy(player)
     current_game = find_current_game
-    current_game.add_point_for(player)
+    game_won = current_game.add_point_for(player)
+    if game_won
+      update_game_score(current_game.winner)
+      @current_game = nil
+    end
   end
 
   def score
-    game_score = [0, 0]
-    @games.each do |g|
-      next if g.winner.nil?
-
-      game_score[g.winner] += 1
+    if @current_game.nil?
+      @game_score.join("-")
+    else
+      [
+        @game_score.join("-"), 
+        @current_game.game_points
+      ].join(", ")
     end
-
-    current_game = find_current_game
-
-    return [
-      game_score.join("-"), 
-      current_game.game_points.join("-")
-    ].join(", ")
   end
 
   def find_player(player)
     @players[player]
   end
 
+  def get_player_name(index)
+    @players.key(index)
+  end
+
   private
+
+  def update_game_score(winner)
+    @game_score[winner] += 1
+  end
 
   def initialize_players(player1, player2)
     @players = {}
@@ -44,14 +51,16 @@ class Match
 
   def initialize_games
     @games = []
+    @game_score = [0,0]
   end
 
   def find_current_game
-    @current_game = @games.select { |g| g.winner.nil? }.first
+    #puts "games is #{@games.inspect}\n"
+    @current_game ||= @games.select { |g| g.winner.nil? }.first
  
     if @current_game.nil?
       @games << Game.new(self)
-      @current_game = @games.select { |g| g.winner.nil? }.first
+      @current_game ||= @games.select { |g| g.winner.nil? }.first
     end
 
     @current_game

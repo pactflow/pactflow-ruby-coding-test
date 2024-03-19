@@ -21,5 +21,9 @@ RSpec.describe Match do
 
     match.pointWonBy("player 1")
     expect(match.score).to eq("1-0")
+
+    match.pointWonBy("player 1")
+    match.pointWonBy("player 2")
+    expect(match.score).to eq("1-0, 15-15")
   end
 end
