@@ -72,4 +72,24 @@ class TennisMatch
     end
   end
 
+  def reset_scores
+    @player1_score = 0
+    @player2_score = 0
+  end
+
+  def play_tie_break
+    tie_break_score = [0, 0]
+
+    loop do
+      if rand(2) == 0
+        tie_break_score[0] += 1
+      else
+        tie_break_score[1] += 1
+      end
+
+      break if (tie_break_score.max >= 7) && (tie_break_score.max >= tie_break_score.min + 2)
+    end
+
+    @game_score = ["1-0", "0-1"][tie_break_score.index(tie_break_score.max)]
+  end
 end
