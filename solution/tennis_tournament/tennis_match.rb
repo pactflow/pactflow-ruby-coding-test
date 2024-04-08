@@ -24,7 +24,8 @@ class TennisMatch
       match_score = "#{@player1_score}-#{@player2_score}"
       return "Set score: #{@player1_name}-#{@player2_name}, match score: #{match_score}"
     else
-      return "Match over. Winner: #{@match_winner}"
+      match_score = "#{@player1_score}-#{@player2_score}"
+      return "Match over. Winner: #{@match_winner}. Set score: #{@player1_name}-#{@player2_name}, match score: #{match_score}"
     end
   end
 
@@ -75,20 +76,31 @@ class Match < TennisMatch
 end
 
 # Example usage:
+
+#Create a new match instance with players "Player A" and "Player B".
 scorer = Match.new("Player A", "Player B")
+#Both players 'Player A' and 'Player B' won a point each.
 scorer.point_won_by("Player A")
-puts scorer.score #=> Set score: Player A-Player B, match score: 15-0
+puts scorer.score # Output=> Set score: Player A-Player B, match score: 1-0
 scorer.point_won_by("Player B")
-puts scorer.score #=> Set score: Player A-Player B, match score: 15-15
+puts scorer.score # Output=> Set score: Player A-Player B, match score: 1-1
+
+#The Player A wins three consecutive points to win the game.
 scorer.point_won_by("Player A")
 scorer.point_won_by("Player A")
 scorer.point_won_by("Player A")
-puts scorer.score #=> Set score: Player A-Player B, match score: 40-15
+puts scorer.score # Output=> Match over. Winner: Player A. Set score: Player A-Player B, match score: 4-1
+
+#The Player B wins three consecutive points to tie the game.
 scorer.point_won_by("Player B")
 scorer.point_won_by("Player B")
 scorer.point_won_by("Player B")
-puts scorer.score #=> Set score: Player B-Player A, match score: 40-40 (Deuce)
+puts scorer.score # Output=> Match over. Winner: Deuce. Set score: Player A-Player B, match score: 4-4
+
+#The Player A won another point, gaining advantage.
 scorer.point_won_by("Player A")
-puts scorer.score #=> Set score: Player A-Player B, match score: Advantage for Player A
+puts scorer.score # Output=> Match over. Winner: Advantage Player A. Set score: Player A-Player B, match score: 5-4
+
+#The Player A won another point, winning the game and match.
 scorer.point_won_by("Player A")
-puts scorer.score #=> match over. Winner: Player A
+puts scorer.score # Output=> Match over. Winner: Player A. Set score: Player A-Player B, match score: 6-4
