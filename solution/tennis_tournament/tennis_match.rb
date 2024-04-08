@@ -1,13 +1,15 @@
 class TennisMatch
-  attr_reader :player1_name, :player2_name
+  attr_reader :player1_name, :player2_name, :match_winner
 
   # Initialize the player names, default scores (match score as well as player scores).
   def initialize(player1_name, player2_name)
+    # Raise an ArgumentError if player names are empty
+    raise ArgumentError, "Player names cannot be empty" if player1_name.empty? || player2_name.empty?
+
     @player1_name = player1_name
     @player2_name = player2_name
     @player1_score = 0
     @player2_score = 0
-    @match_score = { 0 => '0', 1 => '15', 2 => '30', 3 => '40' }
     @match_winner = nil
   end
 
@@ -19,33 +21,40 @@ class TennisMatch
   def score
     if @match_winner.nil?
       # Concatenate player match scores to display the current match score.
-      match_score = "#{@match_score[@player1_score]}-#{@match_score[@player2_score]}"
+      match_score = "#{@player1_score}-#{@player2_score}"
       return "Set score: #{@player1_name}-#{@player2_name}, match score: #{match_score}"
     else
-      return "match over. Winner: #{@match_winner}"
+      return "Match over. Winner: #{@match_winner}"
     end
   end
-
 
   # Records a point won by a player and checks if the match is over.
   # If there is no match winner yet:
   #   - Increments the score of the respective player if the match is still ongoing.
   #   - After updating the scores, checks if there is a match winner.
   # If there is a match winner, no further points can be recorded.
-
   def point_won_by(player_name)
-    if @match_winner.nil?
-      # Increment the score of the respective player if the match is still ongoing.
-      if player_name == @player1_name
-        @player1_score += 1
-      elsif player_name == @player2_name
-        @player2_score += 1
-      end
+    raise ArgumentError, "Invalid player name" unless [player1_name, player2_name].include?(player_name)
+    # raise StandardError, "Match already over" unless @match_winner.nil?
 
-      # Check if there is a match winner after updating scores.
-      check_match_winner
+    update_score(player_name)
+    check_match_winner
+  end
+
+  private
+
+  # Check which player won the point and update their score accordingly
+  def update_score(player_name)
+    if player_name == @player1_name
+      @player1_score += 1
+    elsif player_name == @player2_name
+      @player2_score += 1
     end
   end
+end
+
+class Match < TennisMatch
+  MATCH_SCORE = { 0 => '0', 1 => '15', 2 => '30', 3 => '40' }
 
   private
 
@@ -65,9 +74,8 @@ class TennisMatch
   end
 end
 
-
 # Example usage:
-scorer = TennisMatch.new("Player A", "Player B")
+scorer = Match.new("Player A", "Player B")
 scorer.point_won_by("Player A")
 puts scorer.score #=> Set score: Player A-Player B, match score: 15-0
 scorer.point_won_by("Player B")
