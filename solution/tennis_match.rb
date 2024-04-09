@@ -23,7 +23,8 @@ class TennisMatch
     elsif player == @player2
       @player2_score += 1
     else
-      raise ArgumentError, "Invalid player"
+      puts "Error: Invalid player"
+      return
     end
 
     update_game_score(@player1_score, @player2_score, @game_score)
