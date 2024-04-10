@@ -9,7 +9,7 @@ class TennisMatch
   # Initialize the player names, default scores (match score as well as player scores).
   def initialize(player1_name, player2_name)
     # Raise an ArgumentError if player names are empty
-    raise ArgumentError, 'Player names cannot be empty' if player1_name.empty? || player2_name.empty?
+    raise ArgumentError, 'Player names cannot be empty' if !present?(player1_name) || !present?(player2_name)
 
     @player1_name = player1_name
     @player2_name = player2_name
