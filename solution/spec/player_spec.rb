@@ -7,6 +7,7 @@ RSpec.describe Player do
         expect(player.name).to eq('Player 1')
         expect(player.score).to eq(0)
         expect(player.games_won).to eq(0)
+        expect(player.tie_break_score).to eq(0)
       end
     end
   
@@ -28,6 +29,7 @@ RSpec.describe Player do
       it 'resets scores' do
         player.win_game
         expect(player.score).to eq(0)
+        expect(player.tie_break_score).to eq(0)
       end
     end
   end
