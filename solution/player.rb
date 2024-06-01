@@ -1,5 +1,5 @@
 class Player
-    attr_accessor :name, :score, :games_won
+    attr_accessor :name, :score, :games_won, :tie_break_score
   
     def initialize(name)
       @name = name
@@ -9,6 +9,7 @@ class Player
   
     def reset_scores
       @score = 0
+      @tie_break_score = 0
     end
   
     def win_point
@@ -19,5 +20,5 @@ class Player
       @games_won += 1
       reset_scores
     end
-  
+
 end
