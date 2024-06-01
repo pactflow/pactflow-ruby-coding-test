@@ -37,11 +37,11 @@ class RegularScoring
     end
 
     def advantage?(player1, player2)
-        (player1.score >= 3 && player2.score > 3) && (player1.score - player2.score).abs == 1
+        (player1.score >= 3 && player2.score >= 3) && (player1.score - player2.score).abs == 1
     end
 
     def leading_player(player1, player2)
-        player1.score > player2.score ? player2 : player1
+        player1.score > player2.score ? player1 : player2
     end
 end
   
