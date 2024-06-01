@@ -32,4 +32,10 @@ RSpec.describe Player do
         expect(player.tie_break_score).to eq(0)
       end
     end
+
+    context 'when winning tie breaker' do
+        it 'increments the tie_break_score by 1' do
+          expect { player.win_tie_break_point }.to change { player.tie_break_score }.by(1)
+        end
+    end
   end
