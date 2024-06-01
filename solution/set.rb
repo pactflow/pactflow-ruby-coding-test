@@ -49,6 +49,17 @@ class Set
     end
 
     def set_winner
+        if @player1.games_won >= 6 && @player1.games_won >= @player2.games_won + 2
+            @player1
+          elsif @player2.games_won >= 6 && @player2.games_won >= @player1.games_won + 2
+            @player2
+          elsif @player1.games_won != @player2.games_won && (current_game.scoring_strategy.is_a? TieBreakScoring) 
+            if @player1.games_won > @player2.games_won
+                @player1
+            else
+                @player2
+            end
+        end
     end
 
     def current_game_winner
