@@ -20,5 +20,8 @@ class Player
       @games_won += 1
       reset_scores
     end
-
+  
+    def win_tie_break_point
+      @tie_break_score += 1
+    end
 end
