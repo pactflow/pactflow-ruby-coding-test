@@ -11,20 +11,19 @@ class Match
     end
 
     def point_won_by(player_name)
+        player = player_name == @player1.name ? @player1 : @player2
+        @set.point_won_by(player)
     end
 
     def current_set_score
+        @set.score
     end
 
     def current_game_score
+        @set.games.last.score
     end
 
     def score
         "#{current_set_score},  #{current_game_score}"
     end
-    
-
 end
-
-# match = Match.new('Player 1', 'Player 2')
-# puts match.inspect
