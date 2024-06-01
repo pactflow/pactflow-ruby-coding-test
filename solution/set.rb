@@ -15,7 +15,7 @@ class Set
     def point_won_by(player)
         current_game.point_won_by(player)
         
-        #check_set_winner
+        check_set_winner
     end
     
     def score
@@ -40,8 +40,18 @@ class Set
           puts "#{player.name} WON THE SET"
           exit(false)
         elsif current_game_winner
-            #start new game 
-          
+            if @player1.games_won == 6 && @player2.games_won == 6
+                start_new_game(tie_break: true) # Start tie-break game
+            else
+                start_new_game
+            end
         end
+    end
+
+    def set_winner
+    end
+
+    def current_game_winner
+        current_game&.winner
     end
 end

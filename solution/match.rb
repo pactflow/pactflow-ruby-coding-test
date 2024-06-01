@@ -23,6 +23,10 @@ class Match
         @set.games.last.score
     end
 
+    def get_set
+        @set
+    end
+
     def score
         "#{current_set_score},  #{current_game_score}"
     end
