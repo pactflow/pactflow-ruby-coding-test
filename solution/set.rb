@@ -1,5 +1,6 @@
 require_relative "./game.rb"
 require_relative "./scoring_strategy/regular_scoring_strategy"
+require_relative "./scoring_strategy/tie_break_scoring_strategy"
 
 class Set
     attr_reader :games
@@ -11,8 +12,9 @@ class Set
         start_new_game
     end
 
-    def start_new_game
-        @games << Game.new(@player1, @player2, RegularScoring.new)
+    def start_new_game(tie_break: false)
+        strategy = tie_break ? TieBreakScoring.new : RegularScoring.new
+        @games << Game.new(@player1, @player2, strategy)
     end
 
     def point_won_by(player) 
